@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Health vastaa vain elämän määrästä.
@@ -7,10 +8,25 @@ public class Health : MonoBehaviour
 {
     // maksimi elämä, voi vaihtaa editorin kautta
     [SerializeField] private int maxHealth = 100;
+    [SerializeField] TMP_Text healthText;
 
     // tämänhetkinen elämä
     private int currentHealth;
-    public int CurrentHealth { get => currentHealth; }
+    public int CurrentHealth
+    {
+        get => currentHealth;
+        set { currentHealth = value; UpdateUI(); }
+
+    }
+    void UpdateUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = "HP=" + currentHealth;
+        }
+    }
+
+
 
     void Awake()
     {

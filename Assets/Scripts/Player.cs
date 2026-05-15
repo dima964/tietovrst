@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
 /// Player vastaa pelaajan toiminnasta (liikkuminen, hyökkäys).
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        
+        Load();
         if (health == null)
         {
             Debug.LogError("Health-komponentti puuttuu");
@@ -57,7 +60,17 @@ public class Player : MonoBehaviour
         UnityEngine.Debug.Log("Testi: JSON-tallennus käynnissä");
         PlayerData playerData = new PlayerData(this);
         string json = JsonUtility.ToJson(playerData);
-        File.WriteAllText($"{Application.dataPath}/playerData.json", json);
+        File.WriteAllText($"{UnityEngine.Application.dataPath}/playerData.json", json);
+    }
+    public void Load()
+    {
+        string path = UnityEngine.Application.dataPath + "/playerData.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            health.CurrentHealth = data.health;
+        }
     }
 
 }
