@@ -1,7 +1,6 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
 /// Player vastaa pelaajan toiminnasta (liikkuminen, hyökkäys).
@@ -31,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Keyboard.current.yKey.wasPressedThisFrame)
         {
             Save();
         }
