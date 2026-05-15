@@ -3,6 +3,7 @@ public class PlayerData
 {
     // Talletettavat tilatiedot
     public int health;
+    public int score;
 
     // Konstruktori, joka alustaa muuttujat
     public PlayerData(Player player)

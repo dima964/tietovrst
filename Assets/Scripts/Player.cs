@@ -8,7 +8,8 @@ using static System.Net.Mime.MediaTypeNames;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    private Health health;
+    Health health;
+    public int score = 0;
 
     void Awake()
     {
@@ -70,8 +71,23 @@ public class Player : MonoBehaviour
             string json = File.ReadAllText(path);
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             health.CurrentHealth = data.health;
+            score = data.score;
+            UpdateScoreUI();
         }
     }
+    public void AddScore(int points)
+    {
+        score += points;
+        UpdateScoreUI();
+    }
+    void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score:" + score;
+        }
+    }
+    [SerializeField] TMPro.TMP_Text scoreText;
 
 }
 
